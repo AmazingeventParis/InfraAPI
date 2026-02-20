@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const PASS = process.env.ACCESS_PASS || 'kooki2025';
+// Plus besoin de mot de passe — l'accès est protégé via la page admin (HTTP Basic Auth)
 
 // Toutes les données sensibles viennent des variables d'environnement
 const env = (key, fallback = '') => process.env[key] || fallback;
@@ -54,21 +54,14 @@ const infra = {
 // ============================================================
 
 // JSON — pour Claude / machines
-app.get('/:pass/api', (req, res) => {
-  if (req.params.pass !== PASS) return res.status(404).send('Not found');
+app.get('/api', (req, res) => {
   res.json(infra);
 });
 
 // Markdown — lisible par humains et Claude
-app.get('/:pass', (req, res) => {
-  if (req.params.pass !== PASS) return res.status(404).send('Not found');
+app.get('/', (req, res) => {
   res.type('text/plain; charset=utf-8');
   res.send(generateMarkdown());
-});
-
-// Tout le reste → 404
-app.get('*', (req, res) => {
-  res.status(404).send('Not found');
 });
 
 function generateMarkdown() {

@@ -40,42 +40,12 @@ const infra = {
     postgresql_password: env('SUPABASE_PG_PASSWORD'),
   },
 
-  projets: {
-    kooki: {
-      description: 'Plateforme de cagnottes 0% commission',
-      stack: 'NestJS (API) + Next.js 15 (Web) + PostgreSQL + Redis + Stripe + Brevo',
-      repo: 'https://github.com/AmazingeventParis/Kooki',
-      branche: 'main',
-      urls: {
-        frontend: 'https://kooki.swipego.app',
-        api: 'https://kooki-api.swipego.app',
-      },
-      coolify_uuids: {
-        api: 'f0w44gg0skgcso04o0osg8kw',
-        web: 'dw048cwkk8swkk8ckwcg4k0w',
-        postgresql: 'vowk80sgg8080okkscscwc88',
-        redis: 'q4g0ggksw8wkwws08gk8o4kw',
-      },
-      cles_api: {
-        stripe_secret: env('STRIPE_SECRET_KEY'),
-        stripe_webhook_secret: env('STRIPE_WEBHOOK_SECRET'),
-        stripe_webhook_endpoint_id: env('STRIPE_WEBHOOK_ENDPOINT_ID'),
-        brevo_api_key: env('BREVO_API_KEY'),
-        email_from: 'aschercohen@gmail.com',
-        email_from_name: 'Kooki',
-      },
-      webhook_stripe: {
-        url: 'https://kooki-api.swipego.app/webhooks/stripe',
-        note: 'PAS /api/webhooks/stripe — main.ts exclut webhooks/stripe du prefix global api',
-        events: ['checkout.session.completed', 'payment_intent.succeeded', 'payment_intent.payment_failed', 'charge.refunded', 'charge.dispute.created', 'account.updated'],
-      },
-      commandes: {
-        deploy_api: `curl -s -H "Authorization: Bearer ${env('COOLIFY_TOKEN')}" "http://217.182.89.133:8000/api/v1/deploy?uuid=f0w44gg0skgcso04o0osg8kw&force=true"`,
-        deploy_web: `curl -s -H "Authorization: Bearer ${env('COOLIFY_TOKEN')}" "http://217.182.89.133:8000/api/v1/deploy?uuid=dw048cwkk8swkk8ckwcg4k0w&force=true"`,
-        logs_api: `curl -s -H "Authorization: Bearer ${env('COOLIFY_TOKEN')}" "http://217.182.89.133:8000/api/v1/applications/f0w44gg0skgcso04o0osg8kw/logs?limit=50"`,
-      },
-    },
-
+  github: {
+    organisation: 'AmazingeventParis',
+    url: 'https://github.com/AmazingeventParis',
+    login: 'AmazingeventParis',
+    password: env('GITHUB_PASSWORD'),
+    repos: 'https://github.com/orgs/AmazingeventParis/repositories',
   },
 };
 
@@ -87,24 +57,6 @@ const infra = {
 app.get('/:pass/api', (req, res) => {
   if (req.params.pass !== PASS) return res.status(404).send('Not found');
   res.json(infra);
-});
-
-// JSON — un projet spécifique
-app.get('/:pass/api/:projet', (req, res) => {
-  if (req.params.pass !== PASS) return res.status(404).send('Not found');
-  const projet = infra.projets[req.params.projet];
-  if (!projet) {
-    return res.status(404).json({
-      error: 'Projet non trouvé',
-      projets_disponibles: Object.keys(infra.projets),
-    });
-  }
-  res.json({
-    serveur: infra.serveur,
-    coolify: infra.coolify,
-    supabase: infra.supabase,
-    projet,
-  });
 });
 
 // Markdown — lisible par humains et Claude
@@ -146,33 +98,12 @@ function generateMarkdown() {
 - **Dashboard Password** : ${infra.supabase.dashboard_password}
 - **PostgreSQL Password** : ${infra.supabase.postgresql_password}
 
----
-
-## Projets
-
-### Kooki — Plateforme de cagnottes 0% commission
-- **Stack** : ${infra.projets.kooki.stack}
-- **Repo** : ${infra.projets.kooki.repo}
-- **Frontend** : ${infra.projets.kooki.urls.frontend}
-- **API** : ${infra.projets.kooki.urls.api}
-- **Coolify UUIDs** : API=${infra.projets.kooki.coolify_uuids.api} | Web=${infra.projets.kooki.coolify_uuids.web} | PG=${infra.projets.kooki.coolify_uuids.postgresql} | Redis=${infra.projets.kooki.coolify_uuids.redis}
-- **Stripe Secret** : ${infra.projets.kooki.cles_api.stripe_secret}
-- **Stripe Webhook Secret** : ${infra.projets.kooki.cles_api.stripe_webhook_secret}
-- **Brevo API Key** : ${infra.projets.kooki.cles_api.brevo_api_key}
-- **Webhook Stripe** : ${infra.projets.kooki.webhook_stripe.url}
-
-#### Commandes Deploy Kooki
-\`\`\`bash
-# Deploy API
-${infra.projets.kooki.commandes.deploy_api}
-
-# Deploy Web
-${infra.projets.kooki.commandes.deploy_web}
-
-# Logs API
-${infra.projets.kooki.commandes.logs_api}
-\`\`\`
-
+## GitHub
+- **Organisation** : ${infra.github.organisation}
+- **URL** : ${infra.github.url}
+- **Login** : ${infra.github.login}
+- **Password** : ${infra.github.password}
+- **Tous les repos** : ${infra.github.repos}
 `;
 }
 

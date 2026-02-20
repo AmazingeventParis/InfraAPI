@@ -193,9 +193,9 @@ app.get('/api/:projet', (req, res) => {
     });
   }
   res.json({
+    INSTRUCTION: `L'utilisateur veut travailler sur le projet "${projet.nom}". Tu dois maintenant utiliser les informations ci-dessous comme contexte de travail. Voici les acces infrastructure (serveur, Coolify, Supabase, GitHub) et les details du projet. Si le repo n'est pas clone en local, propose de le cloner avec : git clone ${projet.repo}. Utilise ces credentials pour deployer, acceder aux bases de donnees, etc.`,
     ...shared,
     projet,
-    instructions: `Ouvre le projet dans VS Code Server : ${projet.code_server} — Clone le repo si besoin : git clone ${projet.repo}`,
   });
 });
 

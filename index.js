@@ -76,55 +76,6 @@ const infra = {
       },
     },
 
-    cryptosignals: {
-      description: 'Signaux de trading crypto',
-      url: 'https://crypto.swipego.app',
-      coolify_uuid: 'mwk444s084kgkcsg8ko80wco',
-      repo: 'https://github.com/AmazingeventParis/CryptoSignals',
-    },
-
-    upload_tool: {
-      description: "Outil d'upload de fichiers",
-      url: 'https://upload.swipego.app',
-      coolify_uuid: 'ccogocg0ckcos4kg4o0cg44k',
-      repo: 'https://github.com/AmazingeventParis/Upload',
-    },
-
-    code_server: {
-      description: 'VS Code dans le navigateur',
-      url: 'https://code.swipego.app',
-      coolify_uuid: 'ucwggssw0wscooook40wko80',
-      image: 'codercom/code-server:latest',
-      password: env('CODE_SERVER_PASSWORD'),
-    },
-
-    freqtrade: {
-      description: 'Bot de trading MEXC',
-      url: 'https://freqtrade.swipego.app',
-      coolify_uuid: 'josos8480cswc84g4ggoo0kc',
-      repo: 'https://github.com/AmazingeventParis/Freqtrade-MEXC',
-    },
-
-    focus_racer: {
-      description: 'Jeu Focus Racer',
-      url: 'https://focusracer.swipego.app',
-      coolify_uuid: 'ms440oowockwkso0k0c8okgc',
-      repo: 'https://github.com/Pixoupix/focus-racer.git',
-    },
-  },
-
-  ancien_serveur: {
-    note: 'Gardé uniquement pour les projets clients (Shootnbox, Smakk)',
-    ip: '79.137.88.192',
-    coolify_api: 'http://79.137.88.192:8000',
-    token_api: env('OLD_COOLIFY_TOKEN'),
-    projets: {
-      lokashopy: {
-        url: 'https://lokashopy.swipego.app',
-        coolify_uuid: 'cc4488s408w0skwoo4oc8c4c',
-        repo: 'https://github.com/aschercohen-a11y/Lokashopy',
-      },
-    },
   },
 };
 
@@ -222,41 +173,6 @@ ${infra.projets.kooki.commandes.deploy_web}
 ${infra.projets.kooki.commandes.logs_api}
 \`\`\`
 
-### CryptoSignals
-- **URL** : ${infra.projets.cryptosignals.url}
-- **UUID** : ${infra.projets.cryptosignals.coolify_uuid}
-- **Repo** : ${infra.projets.cryptosignals.repo}
-
-### Upload Tool
-- **URL** : ${infra.projets.upload_tool.url}
-- **UUID** : ${infra.projets.upload_tool.coolify_uuid}
-- **Repo** : ${infra.projets.upload_tool.repo}
-
-### Code Server (VS Code)
-- **URL** : ${infra.projets.code_server.url}
-- **UUID** : ${infra.projets.code_server.coolify_uuid}
-- **Password** : ${infra.projets.code_server.password}
-
-### Freqtrade MEXC
-- **URL** : ${infra.projets.freqtrade.url}
-- **UUID** : ${infra.projets.freqtrade.coolify_uuid}
-- **Repo** : ${infra.projets.freqtrade.repo}
-
-### Focus Racer
-- **URL** : ${infra.projets.focus_racer.url}
-- **UUID** : ${infra.projets.focus_racer.coolify_uuid}
-- **Repo** : ${infra.projets.focus_racer.repo}
-
----
-
-## Ancien Serveur (79.137.88.192)
-- **Note** : ${infra.ancien_serveur.note}
-- **Token API** : ${infra.ancien_serveur.token_api}
-
-### Lokashopy
-- **URL** : ${infra.ancien_serveur.projets.lokashopy.url}
-- **UUID** : ${infra.ancien_serveur.projets.lokashopy.coolify_uuid}
-- **Repo** : ${infra.ancien_serveur.projets.lokashopy.repo}
 `;
 }
 
